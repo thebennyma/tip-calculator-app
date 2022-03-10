@@ -1,18 +1,26 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <PxTipComponent />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import PxTipComponent from "@/components/PxTipComponent.vue";
 
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+  name: "HomeView",
+  components: { PxTipComponent },
+  data() {
+    return {};
+  },
+};
 </script>
+
+<style lang="scss" scoped>
+.home {
+  margin: 1rem;
+  width: min-content;
+  height: min-content;
+  justify-self: center;
+}
+</style>
