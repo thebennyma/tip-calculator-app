@@ -11,5 +11,6 @@ export default {};
   display: grid;
   align-content: center;
   min-height: 100vh;
+  background: hsl(185, 41%, 84%);
 }
 </style>
