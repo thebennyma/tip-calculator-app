@@ -13,7 +13,7 @@
           <button @click="amountTip(0.15)">15%</button>
           <button @click="amountTip(0.25)">25%</button>
           <button @click="amountTip(0.5)">50%</button>
-          <button disabled>Custom</button>
+          <button @click="amountTip(1)">100%</button>
         </div>
       </div>
       <div class="tip__put-tip__number-people">
