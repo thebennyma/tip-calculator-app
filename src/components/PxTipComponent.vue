@@ -73,12 +73,12 @@
           class="tip__amount__div__tip"
           :class="{ isActiveBeZero: numberPeople === 0 }"
         >
-          <label>Tip Amount</label><label>/person</label>
+          <label>Tip Amount</label><label>/ person</label>
           <label v-if="!tipAmountComputed"> $0 </label>
           <label v-else> ${{ tipAmountComputed }}</label>
         </div>
         <div class="tip__amount__div__total">
-          <label>Total</label><label>/person</label
+          <label>Total</label><label>/ person</label
           ><label v-if="!tipAmountComputed"> $0 </label>
           <label v-else> ${{ totalAmountComputed }}</label>
         </div>
@@ -268,7 +268,7 @@ export default {
   }
   &__amount {
     display: grid;
-    grid-row-gap: 2rem;
+    grid-row-gap: 3rem;
     background: hsl(183, 100%, 15%);
     border-radius: 1rem;
     padding: 2rem;
@@ -278,7 +278,7 @@ export default {
     }
     &__div {
       display: grid;
-      grid-row-gap: 1rem;
+      grid-row-gap: 1.5rem;
       &__tip,
       &__total {
         display: grid;
@@ -300,7 +300,7 @@ export default {
         label:last-child {
           color: hsl(172, 67%, 45%);
           grid-area: amount;
-          font-size: 2.5rem;
+          font-size: 2rem;
           text-align: right;
           @media only screen and (max-width: 800px) {
             font-size: 1.5rem;
