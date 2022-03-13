@@ -13,7 +13,7 @@
           <button @click="amountTip(0.15)">15%</button>
           <button @click="amountTip(0.25)">25%</button>
           <button @click="amountTip(0.5)">50%</button>
-          <button @click="amountTip(1)">100%</button>
+          <button disabled>Custom</button>
         </div>
       </div>
       <div class="tip__put-tip__number-people">
@@ -22,15 +22,19 @@
       </div>
     </div>
     <div class="tip__amount">
-      <div class="tip__amount__tip">
-        <label>Tip Amount</label><label>/person</label
-        ><label>{{ tipAmountComputed }}</label>
+      <div class="tip__amount__div">
+        <div class="tip__amount__div__tip">
+          <label>Tip Amount</label><label>/person</label>
+          <label v-if="!tipAmountComputed"> $0 </label>
+          <label v-else> ${{ tipAmountComputed }}</label>
+        </div>
+        <div class="tip__amount__div__total">
+          <label>Total</label><label>/person</label
+          ><label v-if="!tipAmountComputed"> $0 </label>
+          <label v-else> ${{ totalAmountComputed }}</label>
+        </div>
       </div>
-      <div class="tip__amount__total">
-        <label>Total</label><label>/person</label
-        ><label> {{ totalAmountComputed }}</label>
-      </div>
-      <button class="tip__amount__reset" @click="resetTip()">Reset</button>
+      <button class="tip__amount__reset" @click="resetTip()">RESET</button>
     </div>
   </div>
 </template>
@@ -59,15 +63,15 @@ export default {
       return this.billComputed != "" &&
         this.numberPersonComputed != "" &&
         this.amountTipComputed != ""
-        ? (this.bill * this.perTipValue) / this.numberPeople
-        : null;
+        ? ((this.bill * this.perTipValue) / this.numberPeople).toFixed(2)
+        : (0).toFixed(2);
     },
     totalAmountComputed() {
       return this.billComputed != "" &&
         this.numberPersonComputed != "" &&
         this.amountTipComputed != ""
-        ? this.bill * this.perTipValue
-        : null;
+        ? (this.bill * this.perTipValue).toFixed(2)
+        : (0).toFixed(2);
     },
   },
   methods: {
@@ -95,7 +99,7 @@ export default {
   font-weight: bold;
   height: min-content;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
     grid-template-columns: 1fr;
     grid-row-gap: 2rem;
     padding: 2rem;
@@ -104,6 +108,8 @@ export default {
     display: grid;
     grid-row-gap: 1rem;
     &__tip {
+      display: grid;
+      grid-row-gap: 0.2rem;
       label {
         color: hsl(186, 14%, 43%);
       }
@@ -123,14 +129,27 @@ export default {
           background: hsl(183, 100%, 15%);
           cursor: pointer;
         }
+        @media only screen and (max-width: 800px) {
+          grid-template-columns: 1fr 1fr;
+          button {
+            padding: 0.6rem 1rem;
+          }
+        }
       }
     }
     &__bill,
     &__number-people {
+      display: grid;
+      grid-row-gap: 0.2rem;
       input[type="number"]::-webkit-inner-spin-button,
       input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
+      }
+      input[type="number"]:focus {
+        outline: none;
+        border: 2px solid hsl(172, 67%, 45%);
+        box-shadow: none;
       }
       label {
         color: hsl(186, 14%, 43%);
@@ -150,7 +169,49 @@ export default {
   }
   &__amount {
     display: grid;
+    grid-row-gap: 2rem;
     background: hsl(183, 100%, 15%);
+    border-radius: 1rem;
+    padding: 2rem;
+    &__div {
+      &__tip,
+      &__total {
+        display: grid;
+        grid-column-gap: 1rem;
+        grid-template-areas: "tip amount" "person amount";
+        label:first-child {
+          color: hsl(189, 41%, 97%);
+          grid-area: tip;
+          font-size: 1rem;
+        }
+        label:nth-child(2n) {
+          color: white;
+          grid-area: person;
+          font-size: 0.7rem;
+          color: hsl(184, 14%, 56%);
+        }
+        label:last-child {
+          color: hsl(172, 67%, 45%);
+          grid-area: amount;
+          font-size: 2.5rem;
+          text-align: right;
+          @media only screen and (max-width: 800px) {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+    button {
+      font-weight: bold;
+      font-family: "Space Mono", monospace;
+      font-size: 1.3rem;
+      border-radius: 0.5rem;
+      border: none;
+      padding: 0.8rem 0.3rem;
+      color: hsl(183, 100%, 15%);
+      background: hsl(172, 67%, 45%);
+      cursor: pointer;
+    }
   }
 }
 </style>
