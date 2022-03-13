@@ -1,5 +1,9 @@
 <template>
   <div class="home">
+    <div class="home__title">
+      <span>SPLI</span>
+      <span>TTER</span>
+    </div>
     <PxTipComponent />
   </div>
 </template>
@@ -22,5 +26,22 @@ export default {
   width: min-content;
   height: min-content;
   justify-self: center;
+  @media only screen and (max-width: 450px) {
+    margin: 0;
+    width: 100%;
+  }
+  &__title {
+    display: grid;
+    font-family: "Space Mono", monospace;
+    font-weight: bold;
+    font-size: 1.6rem;
+    text-align: center;
+    color: hsl(186, 14%, 43%);
+    letter-spacing: 8px;
+    margin-bottom: 4rem;
+    @media only screen and (max-width: 450px) {
+      margin-bottom: 2rem;
+    }
+  }
 }
 </style>
