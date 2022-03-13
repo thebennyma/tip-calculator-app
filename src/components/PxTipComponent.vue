@@ -174,6 +174,9 @@ export default {
     border-radius: 1rem;
     padding: 2rem;
     width: 30vh;
+    @media only screen and (max-width: 800px) {
+      width: 100%;
+    }
     &__div {
       &__tip,
       &__total {
