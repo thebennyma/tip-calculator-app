@@ -193,6 +193,7 @@ export default {
           color: hsl(183, 100%, 15%);
           background: hsl(185, 41%, 84%);
           opacity: 0.6;
+          cursor: not-allowed;
         }
 
         @media only screen and (max-width: 800px) {

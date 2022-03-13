@@ -48,9 +48,6 @@ export default {
     color: hsl(186, 14%, 43%);
     letter-spacing: 8px;
     margin-bottom: 4rem;
-    @media only screen and (max-width: 450px) {
-      margin-bottom: 2rem;
-    }
   }
   .attribution {
     font-family: "Space Mono", monospace;
@@ -59,6 +56,13 @@ export default {
     text-align: center;
     color: hsl(186, 14%, 43%);
     margin-top: 4rem;
+  }
+  &__title,
+  .attribution {
+    @media only screen and (max-width: 450px) {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 }
 </style>
