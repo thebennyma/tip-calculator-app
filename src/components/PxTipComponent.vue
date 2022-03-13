@@ -8,9 +8,10 @@
         >
         <input
           type="number"
-          v-model="bill"
           placeholder="0"
           :class="{ isBeZero: bill === 0 }"
+          :value="bill"
+          @input="updateValueBill"
         />
         <img src="@/assets/icon-dollar.svg" alt="" />
       </div>
@@ -54,8 +55,9 @@
             v-else
             type="number"
             name=""
-            v-model="custom"
             placeholder="0"
+            :value="custom"
+            @input="updateValuePercentage"
           />
         </div>
       </div>
@@ -69,9 +71,10 @@
         >
         <input
           type="number"
-          v-model="numberPeople"
           placeholder="0"
           :class="{ isBeZero: numberPeople === 0 }"
+          :value="numberPeople"
+          @input="updateValuePerson"
         />
         <img src="@/assets/icon-person.svg" alt="" />
       </div>
@@ -172,6 +175,27 @@ export default {
     activeCustom() {
       this.customIsActive = false;
       this.perTipValue = "";
+    },
+    updateValueBill(event) {
+      const value = event.target.value;
+      if (String(value).length <= 5) {
+        this.bill = value;
+      }
+      this.$forceUpdate();
+    },
+    updateValuePerson(event) {
+      const value = event.target.value;
+      if (String(value).length <= 5) {
+        this.numberPeople = value;
+      }
+      this.$forceUpdate();
+    },
+    updateValuePercentage(event) {
+      const value = event.target.value;
+      if (String(value).length <= 3) {
+        this.custom = value;
+      }
+      this.$forceUpdate();
     },
   },
 };
@@ -359,7 +383,7 @@ export default {
         label:last-child {
           color: hsl(172, 67%, 45%);
           grid-area: amount;
-          font-size: 2rem;
+          font-size: 1.8rem;
           text-align: right;
           @media only screen and (max-width: 800px) {
             font-size: 1.5rem;
