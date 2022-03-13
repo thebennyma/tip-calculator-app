@@ -1,9 +1,17 @@
 <template>
   <div class="tip">
     <div class="tip__put-tip">
-      <div class="tip__put-tip__bill">
+      <div class="tip__put-tip__bill" :class="{ isActiveBeZero: bill === 0 }">
         <label>Bill</label>
-        <input type="number" v-model="bill" placeholder="0" />
+        <label class="be-zero" :class="{ isActive: bill === 0 }"
+          >Cant't be zero</label
+        >
+        <input
+          type="number"
+          v-model="bill"
+          placeholder="0"
+          :class="{ isBeZero: bill === 0 }"
+        />
       </div>
       <div class="tip__put-tip__tip">
         <label>Select tip</label>
@@ -38,17 +46,31 @@
           >
             50%
           </button>
-          <button disabled>Custom</button>
+          <button class="custom" disabled>Custom</button>
         </div>
       </div>
-      <div class="tip__put-tip__number-people">
+      <div
+        class="tip__put-tip__number-people"
+        :class="{ isActiveBeZero: numberPeople === 0 }"
+      >
         <label>Number of People</label>
-        <input type="number" v-model="numberPeople" placeholder="0" />
+        <label class="be-zero" :class="{ isActive: numberPeople === 0 }"
+          >Cant't be zero</label
+        >
+        <input
+          type="number"
+          v-model="numberPeople"
+          placeholder="0"
+          :class="{ isBeZero: numberPeople === 0 }"
+        />
       </div>
     </div>
     <div class="tip__amount">
       <div class="tip__amount__div">
-        <div class="tip__amount__div__tip">
+        <div
+          class="tip__amount__div__tip"
+          :class="{ isActiveBeZero: numberPeople === 0 }"
+        >
           <label>Tip Amount</label><label>/person</label>
           <label v-if="!tipAmountComputed"> $0 </label>
           <label v-else> ${{ tipAmountComputed }}</label>
@@ -165,6 +187,11 @@ export default {
           color: hsl(183, 100%, 15%);
           background: hsl(172, 67%, 45%);
         }
+        .custom {
+          color: hsl(183, 100%, 15%);
+          background: hsl(185, 41%, 84%);
+          opacity: 0.6;
+        }
 
         @media only screen and (max-width: 800px) {
           grid-template-columns: 1fr 1fr;
@@ -178,6 +205,14 @@ export default {
     &__number-people {
       display: grid;
       grid-row-gap: 0.2rem;
+      .be-zero {
+        display: none;
+      }
+      .isActive {
+        display: grid;
+        color: red;
+        opacity: 0.8;
+      }
       input[type="number"]::-webkit-inner-spin-button,
       input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
@@ -187,6 +222,12 @@ export default {
         outline: none;
         border: 2px solid hsl(172, 67%, 45%);
         box-shadow: none;
+      }
+      .isBeZero[type="number"]:focus {
+        border: 2px solid red;
+      }
+      .isBeZero {
+        border: 2px solid red;
       }
       label {
         color: hsl(186, 14%, 43%);
@@ -201,6 +242,20 @@ export default {
         border-radius: 0.5rem;
         border: none;
         background: hsl(189, 41%, 97%);
+      }
+    }
+    .isActiveBeZero {
+      display: grid;
+      grid-template-areas: "a a" "c c";
+      label:first-child {
+        grid-area: a;
+      }
+      label:nth-child(2n) {
+        grid-area: a;
+        text-align: right;
+      }
+      label:last-child {
+        grid-area: c;
       }
     }
   }
