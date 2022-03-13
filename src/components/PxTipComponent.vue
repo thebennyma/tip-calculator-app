@@ -8,11 +8,36 @@
       <div class="tip__put-tip__tip">
         <label>Select tip</label>
         <div>
-          <button @click="amountTip(0.05)">5%</button>
-          <button @click="amountTip(0.1)">10%</button>
-          <button @click="amountTip(0.15)">15%</button>
-          <button @click="amountTip(0.25)">25%</button>
-          <button @click="amountTip(0.5)">50%</button>
+          <button
+            @click="amountTip(0.05)"
+            :class="{ isActive: perTipValue == 0.05 }"
+          >
+            5%
+          </button>
+          <button
+            @click="amountTip(0.1)"
+            :class="{ isActive: perTipValue == 0.1 }"
+          >
+            10%
+          </button>
+          <button
+            @click="amountTip(0.15)"
+            :class="{ isActive: perTipValue == 0.15 }"
+          >
+            15%
+          </button>
+          <button
+            @click="amountTip(0.25)"
+            :class="{ isActive: perTipValue == 0.25 }"
+          >
+            25%
+          </button>
+          <button
+            @click="amountTip(0.5)"
+            :class="{ isActive: perTipValue == 0.5 }"
+          >
+            50%
+          </button>
           <button disabled>Custom</button>
         </div>
       </div>
@@ -34,7 +59,14 @@
           <label v-else> ${{ totalAmountComputed }}</label>
         </div>
       </div>
-      <button class="tip__amount__reset" @click="resetTip()">RESET</button>
+      <button
+        class="tip__amount__reset"
+        :class="{ isActive: totalAmountComputed != 0 }"
+        @click="resetTip()"
+        :disabled="totalAmountComputed == 0"
+      >
+        RESET
+      </button>
     </div>
   </div>
 </template>
@@ -121,14 +153,19 @@ export default {
         button {
           font-family: "Space Mono", monospace;
           font-weight: bold;
-          font-size: 1.5rem;
+          font-size: 1.3rem;
           border-radius: 0.5rem;
           border: none;
-          padding: 0.3rem;
+          padding: 0.5rem 0.5rem;
           color: hsl(189, 41%, 97%);
           background: hsl(183, 100%, 15%);
           cursor: pointer;
         }
+        .isActive {
+          color: hsl(183, 100%, 15%);
+          background: hsl(172, 67%, 45%);
+        }
+
         @media only screen and (max-width: 800px) {
           grid-template-columns: 1fr 1fr;
           button {
@@ -178,6 +215,8 @@ export default {
       width: 80%;
     }
     &__div {
+      display: grid;
+      grid-row-gap: 1rem;
       &__tip,
       &__total {
         display: grid;
@@ -187,6 +226,7 @@ export default {
           color: hsl(189, 41%, 97%);
           grid-area: tip;
           font-size: 1rem;
+          padding-bottom: 4px;
         }
         label:nth-child(2n) {
           color: white;
@@ -207,6 +247,11 @@ export default {
       }
     }
     button {
+      cursor: not-allowed;
+      opacity: 0.2;
+    }
+    button,
+    .isActive {
       font-weight: bold;
       font-family: "Space Mono", monospace;
       font-size: 1.3rem;
@@ -215,7 +260,10 @@ export default {
       padding: 0.8rem 0.3rem;
       color: hsl(183, 100%, 15%);
       background: hsl(172, 67%, 45%);
+    }
+    .isActive {
       cursor: pointer;
+      opacity: 1;
     }
   }
 }
