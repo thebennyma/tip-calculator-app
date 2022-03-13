@@ -175,7 +175,7 @@ export default {
     padding: 2rem;
     width: 30vh;
     @media only screen and (max-width: 800px) {
-      width: 100%;
+      width: 80%;
     }
     &__div {
       &__tip,
