@@ -47,7 +47,16 @@
           >
             50%
           </button>
-          <button class="custom" disabled>Custom</button>
+          <button v-if="customIsActive" class="custom" @click="activeCustom()">
+            Custom
+          </button>
+          <input
+            v-else
+            type="number"
+            name=""
+            v-model="custom"
+            placeholder="0"
+          />
         </div>
       </div>
       <div
@@ -103,6 +112,8 @@ export default {
       bill: "",
       perTipValue: "",
       numberPeople: "",
+      custom: "",
+      customIsActive: true,
     };
   },
   computed: {
@@ -113,31 +124,54 @@ export default {
       return this.numberPeople;
     },
     amountTipComputed() {
-      return this.perTipValue;
+      return this.customIsActive == false
+        ? this.convertPercentage
+        : this.perTipValue;
+    },
+    convertPercentage() {
+      return this.custom / 100;
     },
     tipAmountComputed() {
       return this.billComputed != "" &&
         this.numberPersonComputed != "" &&
         this.amountTipComputed != ""
-        ? ((this.bill * this.perTipValue) / this.numberPeople).toFixed(2)
+        ? (
+            (this.bill *
+              (this.customIsActive == false
+                ? this.convertPercentage
+                : this.perTipValue)) /
+            this.numberPeople
+          ).toFixed(2)
         : (0).toFixed(2);
     },
     totalAmountComputed() {
       return this.billComputed != "" &&
         this.numberPersonComputed != "" &&
         this.amountTipComputed != ""
-        ? (this.bill * this.perTipValue).toFixed(2)
+        ? (
+            this.bill *
+            (this.customIsActive == false
+              ? this.convertPercentage
+              : this.perTipValue)
+          ).toFixed(2)
         : (0).toFixed(2);
     },
   },
   methods: {
     amountTip(tip, index) {
       this.perTipValue = tip;
+      this.customIsActive = true;
     },
     resetTip() {
       this.bill = "";
       this.perTipValue = "";
       this.numberPeople = "";
+      this.customIsActive = true;
+      this.custom = "";
+    },
+    activeCustom() {
+      this.customIsActive = false;
+      this.perTipValue = "";
     },
   },
 };
@@ -185,6 +219,31 @@ export default {
           background: hsl(183, 100%, 15%);
           cursor: pointer;
         }
+        input {
+          text-align: right;
+          padding: 4px 0.5rem;
+          color: hsl(183, 100%, 15%);
+          font-family: "Space Mono", monospace;
+          font-weight: bold;
+          font-size: 1.5rem;
+          border-radius: 0.5rem;
+          border: none;
+          background: hsl(189, 41%, 97%);
+          width: 83%;
+          @media only screen and (max-width: 800px) {
+            width: 88%;
+          }
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        input[type="number"]:focus {
+          outline: none;
+          border: 1px solid hsl(172, 67%, 45%);
+          box-shadow: none;
+        }
         .isActive {
           color: hsl(183, 100%, 15%);
           background: hsl(172, 67%, 45%);
@@ -193,7 +252,6 @@ export default {
           color: hsl(183, 100%, 15%);
           background: hsl(185, 41%, 84%);
           opacity: 0.6;
-          cursor: not-allowed;
         }
 
         @media only screen and (max-width: 800px) {
