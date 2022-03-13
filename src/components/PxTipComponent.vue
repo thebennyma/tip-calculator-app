@@ -173,6 +173,7 @@ export default {
     background: hsl(183, 100%, 15%);
     border-radius: 1rem;
     padding: 2rem;
+    width: 30vh;
     &__div {
       &__tip,
       &__total {
@@ -188,6 +189,7 @@ export default {
           color: white;
           grid-area: person;
           font-size: 0.7rem;
+          width: 100px;
           color: hsl(184, 14%, 56%);
         }
         label:last-child {
