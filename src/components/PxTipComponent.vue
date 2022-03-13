@@ -12,6 +12,7 @@
           placeholder="0"
           :class="{ isBeZero: bill === 0 }"
         />
+        <img src="@/assets/icon-dollar.svg" alt="" />
       </div>
       <div class="tip__put-tip__tip">
         <label>Select tip</label>
@@ -63,6 +64,7 @@
           placeholder="0"
           :class="{ isBeZero: numberPeople === 0 }"
         />
+        <img src="@/assets/icon-person.svg" alt="" />
       </div>
     </div>
     <div class="tip__amount">
@@ -242,6 +244,11 @@ export default {
         border-radius: 0.5rem;
         border: none;
         background: hsl(189, 41%, 97%);
+      }
+      img {
+        position: absolute;
+        padding-top: 2rem;
+        padding-left: 1rem;
       }
     }
     .isActiveBeZero {
