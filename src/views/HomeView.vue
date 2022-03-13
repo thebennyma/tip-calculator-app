@@ -5,6 +5,15 @@
       <span>TTER</span>
     </div>
     <PxTipComponent />
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by
+      <a href="https://github.com/thebennyma" target="_blank"
+        >Marco Antonio Alvarado</a
+      >.
+    </div>
   </div>
 </template>
 
@@ -42,6 +51,14 @@ export default {
     @media only screen and (max-width: 450px) {
       margin-bottom: 2rem;
     }
+  }
+  .attribution {
+    font-family: "Space Mono", monospace;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    color: hsl(186, 14%, 43%);
+    margin-top: 4rem;
   }
 }
 </style>
