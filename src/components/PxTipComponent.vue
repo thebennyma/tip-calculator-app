@@ -1,17 +1,16 @@
 <template>
   <div class="tip">
     <div class="tip__put-tip">
-      <div class="tip__put-tip__bill" :class="{ isActiveBeZero: bill === 0 }">
+      <div class="tip__put-tip__bill" :class="{ isActiveBeZero: bill === '0' }">
         <label>Bill</label>
-        <label class="be-zero" :class="{ isActive: bill === 0 }"
+        <label class="be-zero" :class="{ isActive: bill === '0' }"
           >Cant't be zero</label
         >
         <input
           type="number"
           placeholder="0"
-          :class="{ isBeZero: bill === 0 }"
+          :class="{ isBeZero: bill === '0' }"
           :value="bill"
-          min="1"
           @input="updateValueBill"
         />
         <img src="@/assets/icon-dollar.svg" alt="" />
@@ -59,25 +58,25 @@
             placeholder="0"
             :value="custom"
             @input="updateValuePercentage"
-            min="1"
+            min="0"
           />
         </div>
       </div>
       <div
         class="tip__put-tip__number-people"
-        :class="{ isActiveBeZero: numberPeople === 0 }"
+        :class="{ isActiveBeZero: numberPeople === '0' }"
       >
         <label>Number of People</label>
-        <label class="be-zero" :class="{ isActive: numberPeople === 0 }"
+        <label class="be-zero" :class="{ isActive: numberPeople === '0' }"
           >Cant't be zero</label
         >
         <input
           type="number"
           placeholder="0"
-          :class="{ isBeZero: numberPeople === 0 }"
+          :class="{ isBeZero: numberPeople === '0' }"
           :value="numberPeople"
           @input="updateValuePerson"
-          min="1"
+          min="0"
         />
         <img src="@/assets/icon-person.svg" alt="" />
       </div>
@@ -86,7 +85,7 @@
       <div class="tip__amount__div">
         <div
           class="tip__amount__div__tip"
-          :class="{ isActiveBeZero: numberPeople === 0 }"
+          :class="{ isActiveBeZero: numberPeople === '0' }"
         >
           <label>Tip Amount</label><label>/ person</label>
           <label v-if="!tipAmountComputed"> $0 </label>
@@ -100,9 +99,11 @@
       </div>
       <button
         class="tip__amount__reset"
-        :class="{ isActive: totalAmountComputed != 0 }"
+        :class="{
+          isActive: totalAmountComputed > 0,
+        }"
         @click="resetTip()"
-        :disabled="totalAmountComputed == 0"
+        :disabled="totalAmountComputed > 0"
       >
         RESET
       </button>
@@ -138,9 +139,9 @@ export default {
       return this.custom / 100;
     },
     tipAmountComputed() {
-      return this.billComputed != "" &&
-        this.numberPersonComputed != "" &&
-        this.amountTipComputed != ""
+      return this.billComputed > 0 &&
+        this.numberPersonComputed > 0 &&
+        this.amountTipComputed > 0
         ? (
             (this.bill *
               (this.customIsActive == false
@@ -151,9 +152,9 @@ export default {
         : (0).toFixed(2);
     },
     totalAmountComputed() {
-      return this.billComputed != "" &&
-        this.numberPersonComputed != "" &&
-        this.amountTipComputed != ""
+      return this.billComputed > 0 &&
+        this.numberPersonComputed > 0 &&
+        this.amountTipComputed > 0
         ? (
             this.bill *
             (this.customIsActive == false
