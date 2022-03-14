@@ -103,7 +103,7 @@
           isActive: totalAmountComputed > 0,
         }"
         @click="resetTip()"
-        :disabled="totalAmountComputed > 0"
+        :disabled="totalAmountComputed === ('0' || 'NaN' || 'Infinity' || '')"
       >
         RESET
       </button>
