@@ -12,6 +12,7 @@
           :class="{ isBeZero: bill === '0' }"
           :value="bill"
           @input="updateValueBill"
+          min="1"
         />
         <img src="@/assets/icon-dollar.svg" alt="" />
       </div>
@@ -58,7 +59,7 @@
             placeholder="0"
             :value="custom"
             @input="updateValuePercentage"
-            min="0"
+            min="1"
           />
         </div>
       </div>
@@ -76,7 +77,7 @@
           :class="{ isBeZero: numberPeople === '0' }"
           :value="numberPeople"
           @input="updateValuePerson"
-          min="0"
+          min="1"
         />
         <img src="@/assets/icon-person.svg" alt="" />
       </div>
